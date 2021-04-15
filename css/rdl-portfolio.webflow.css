@@ -116,6 +116,7 @@ figcaption {
   -webkit-align-items: flex-end;
   -ms-flex-align: end;
   align-items: flex-end;
+  background-color: #efefe3;
 }
 
 .hero.pages {
@@ -1399,6 +1400,7 @@ figcaption {
 
 .body-2 {
   background-color: #efefe3;
+  background-image: none;
 }
 
 .text-block-4 {
@@ -2421,6 +2423,7 @@ figcaption {
 }
 
 .image-15 {
+  margin-top: 241px;
   margin-bottom: -5px;
   padding-bottom: 0px;
 }
