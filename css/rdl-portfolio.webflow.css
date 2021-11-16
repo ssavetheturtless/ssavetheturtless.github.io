@@ -18,6 +18,7 @@ body {
   font-size: 14px;
   line-height: 20px;
   background-clip: border-box;
+  -webkit-text-fill-color: inherit;
 }
 
 h2 {
@@ -367,6 +368,7 @@ figcaption {
   background-repeat: repeat-y;
   background-attachment: fixed;
   background-clip: border-box;
+  -webkit-text-fill-color: inherit;
 }
 
 .column.about {
@@ -758,6 +760,7 @@ figcaption {
   background-position: 0px 0px;
   background-size: cover;
   background-clip: border-box;
+  -webkit-text-fill-color: inherit;
 }
 
 .div-block-10 {
@@ -1416,6 +1419,7 @@ figcaption {
   text-align: left;
   text-transform: none;
   background-clip: border-box;
+  -webkit-text-fill-color: inherit;
 }
 
 .image-9 {
@@ -1513,6 +1517,7 @@ figcaption {
   margin-top: -435px;
   font-family: Inconsolata, monospace;
   background-clip: border-box;
+  -webkit-text-fill-color: inherit;
 }
 
 .text-block-6 {
@@ -1574,6 +1579,7 @@ figcaption {
   background-position: 0% 0%;
   background-size: auto;
   background-clip: border-box;
+  -webkit-text-fill-color: inherit;
   -o-object-fit: contain;
   object-fit: contain;
 }
@@ -1601,6 +1607,7 @@ figcaption {
   background-position: 0px 0px;
   background-size: auto;
   background-clip: border-box;
+  -webkit-text-fill-color: inherit;
   -o-object-fit: fill;
   object-fit: fill;
 }
@@ -1816,8 +1823,6 @@ figcaption {
   opacity: 0;
   -webkit-backface-visibility: visible;
   backface-visibility: visible;
-  -webkit-transform: perspective(0px);
-  transform: perspective(0px);
   -webkit-transition: opacity 525ms ease;
   transition: opacity 525ms ease;
   -webkit-background-clip: text;
@@ -2011,6 +2016,7 @@ figcaption {
 .paragraph-14:hover {
   opacity: 1;
   background-clip: border-box;
+  -webkit-text-fill-color: inherit;
 }
 
 .div-block-32 {
@@ -2106,6 +2112,7 @@ figcaption {
 
 .link-3:hover {
   background-clip: border-box;
+  -webkit-text-fill-color: inherit;
 }
 
 .link-4 {
@@ -2151,6 +2158,7 @@ figcaption {
   text-align: left;
   text-transform: none;
   background-clip: border-box;
+  -webkit-text-fill-color: inherit;
 }
 
 .body-3 {
@@ -2426,6 +2434,14 @@ figcaption {
   margin-top: 241px;
   margin-bottom: -5px;
   padding-bottom: 0px;
+}
+
+.link-6 {
+  font-family: Inconsolata, monospace;
+}
+
+.link-7 {
+  font-family: Inconsolata, monospace;
 }
 
 @media screen and (max-width: 991px) {
