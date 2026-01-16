@@ -72,24 +72,62 @@
         </div>
 
         <div class="mt-12 mb-8 text-sm sm:text-base max-w-xl">
-          <nav class="flex items-center space-x-4">
+          <div class="space-y-0">
             <button id="projects-toggle" class="uppercase hover:text-gray-500 transition-colors cursor-pointer flex items-center">
-              <span id="projects-icon" class="mr-2 transition-transform duration-300" style="transform: rotate(-90deg);">▼</span>
+              <span id="projects-icon" class="mr-2 transition-all duration-300" style="transform: rotate(-90deg);">
+                <svg id="projects-icon-svg" width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 2 L4 4 L6 2" />
+                </svg>
+              </span>
               PROJECTS
             </button>
-            <a href="#" class="uppercase hover:text-gray-500 transition-colors">WRITING</a>
-          </nav>
-          
-          <div id="projects-list" class="mt-4 overflow-hidden transition-all duration-300 ease-in-out" style="max-height: 0; opacity: 0;">
-            <div class="pl-6 border-l-2 border-gray-300 space-y-2">
-              <div class="pt-1">
-                <a href="https://kinfolkscientific.com/" target="_blank" rel="noopener noreferrer" class="hover:text-gray-500 transition-colors">Kinfolk Scientific</a>
+            
+            <div id="projects-list" class="overflow-hidden transition-all duration-300 ease-in-out" style="max-height: 0; opacity: 0;">
+              <div class="pl-8 mt-2 relative">
+                <!-- Vertical line -->
+                <div class="absolute left-0 top-0 bottom-0 w-0.5 bg-gray-300"></div>
+                
+                <div class="space-y-3 pb-2">
+                  <div class="relative pl-4">
+                    <!-- L-shaped connector - horizontal line -->
+                    <div class="absolute left-0 top-[0.625rem] w-4 h-0.5 bg-gray-300"></div>
+                    <a href="https://kinfolkscientific.com/" target="_blank" rel="noopener noreferrer" class="hover:text-gray-500 transition-colors block">Kinfolk Scientific</a>
+                  </div>
+                  <div class="relative pl-4">
+                    <!-- L-shaped connector - horizontal line -->
+                    <div class="absolute left-0 top-[0.625rem] w-4 h-0.5 bg-gray-300"></div>
+                    <span class="hover:text-gray-500 transition-colors cursor-default block">Myanmar Monitor</span>
+                  </div>
+                  <div class="relative pl-4">
+                    <!-- L-shaped connector - horizontal line -->
+                    <div class="absolute left-0 top-[0.625rem] w-4 h-0.5 bg-gray-300"></div>
+                    <span class="hover:text-gray-500 transition-colors cursor-default block">Project Ithaca</span>
+                  </div>
+                </div>
               </div>
-              <div>
-                <span class="hover:text-gray-500 transition-colors cursor-default">Myanmar Monitor</span>
-              </div>
-              <div class="pb-1">
-                <span class="hover:text-gray-500 transition-colors cursor-default">Project Ithaca</span>
+            </div>
+            
+            <button id="writing-toggle" class="uppercase hover:text-gray-500 transition-colors cursor-pointer flex items-center mt-4">
+              <span id="writing-icon" class="mr-2 transition-all duration-300" style="transform: rotate(-90deg);">
+                <svg id="writing-icon-svg" width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 2 L4 4 L6 2" />
+                </svg>
+              </span>
+              WRITING
+            </button>
+            
+            <div id="writing-list" class="overflow-hidden transition-all duration-300 ease-in-out" style="max-height: 0; opacity: 0;">
+              <div class="pl-8 mt-2 relative">
+                <!-- Vertical line -->
+                <div class="absolute left-0 top-0 bottom-0 w-0.5 bg-gray-300"></div>
+                
+                <div class="pb-2">
+                  <div class="relative pl-4">
+                    <!-- L-shaped connector - horizontal line -->
+                    <div class="absolute left-0 top-[0.625rem] w-4 h-0.5 bg-gray-300"></div>
+                    <span class="italic text-gray-600 block">Still staring at a blank Word doc. Please be patient.</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -119,15 +157,17 @@
   <script type="module" src="/index.tsx"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // Projects toggle
       const projectsToggle = document.getElementById('projects-toggle');
       const projectsList = document.getElementById('projects-list');
       const projectsIcon = document.getElementById('projects-icon');
-      let isOpen = false;
+      const projectsIconSvg = document.getElementById('projects-icon-svg');
+      let projectsOpen = false;
 
       projectsToggle.addEventListener('click', function() {
-        isOpen = !isOpen;
+        projectsOpen = !projectsOpen;
         
-        if (isOpen) {
+        if (projectsOpen) {
           // Temporarily remove max-height restriction to measure content
           projectsList.style.maxHeight = 'none';
           const height = projectsList.scrollHeight;
@@ -138,6 +178,7 @@
             projectsList.style.maxHeight = height + 'px';
             projectsList.style.opacity = '1';
             projectsIcon.style.transform = 'rotate(0deg)';
+            projectsIconSvg.setAttribute('fill', 'currentColor');
           });
         } else {
           const currentHeight = projectsList.scrollHeight;
@@ -146,6 +187,42 @@
             projectsList.style.maxHeight = '0';
             projectsList.style.opacity = '0';
             projectsIcon.style.transform = 'rotate(-90deg)';
+            projectsIconSvg.setAttribute('fill', 'none');
+          });
+        }
+      });
+
+      // Writing toggle
+      const writingToggle = document.getElementById('writing-toggle');
+      const writingList = document.getElementById('writing-list');
+      const writingIcon = document.getElementById('writing-icon');
+      const writingIconSvg = document.getElementById('writing-icon-svg');
+      let writingOpen = false;
+
+      writingToggle.addEventListener('click', function() {
+        writingOpen = !writingOpen;
+        
+        if (writingOpen) {
+          // Temporarily remove max-height restriction to measure content
+          writingList.style.maxHeight = 'none';
+          const height = writingList.scrollHeight;
+          writingList.style.maxHeight = '0';
+          
+          // Use requestAnimationFrame to ensure smooth transition
+          requestAnimationFrame(function() {
+            writingList.style.maxHeight = height + 'px';
+            writingList.style.opacity = '1';
+            writingIcon.style.transform = 'rotate(0deg)';
+            writingIconSvg.setAttribute('fill', 'currentColor');
+          });
+        } else {
+          const currentHeight = writingList.scrollHeight;
+          writingList.style.maxHeight = currentHeight + 'px';
+          requestAnimationFrame(function() {
+            writingList.style.maxHeight = '0';
+            writingList.style.opacity = '0';
+            writingIcon.style.transform = 'rotate(-90deg)';
+            writingIconSvg.setAttribute('fill', 'none');
           });
         }
       });
