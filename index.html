@@ -99,9 +99,9 @@
                       <div class="absolute left-2 top-[0.75rem] w-4 h-px bg-gray-300"></div>
                       <button id="myanmar-toggle" class="hover:text-gray-500 transition-colors cursor-pointer text-left bg-transparent border-none p-0 font-mono text-sm sm:text-base">Myanmar Monitor</button>
                     </div>
-                    <div id="myanmar-description" class="overflow-hidden transition-all duration-300 ease-in-out mt-2 mb-2" style="max-height: 0; opacity: 0;">
-                      <div class="pl-4">
-                        <p class="text-[#8b7d6b]">The Myanmar Monitor is a project that monitors the situation in Myanmar since the 2021 coup. There are some 
+                    <div id="myanmar-description" class="overflow-hidden transition-all duration-300 ease-in-out mt-2" style="max-height: 0; opacity: 0;">
+                      <div class="pl-4 pr-0" style="max-width: 36rem;">
+                        <p class="text-[#8b7d6b]" style="font-size: calc(0.875rem - 2px); line-height: 1.5;">The Myanmar Monitor is a project that monitors the situation in Myanmar since the 2021 coup. There are some 
                           great initiatives that are pushing live updates of on the ground developments; this is a personal skills development project to create live data pipelines from social media sources and traditional media APIs.</p>
                       </div>
                     </div>
@@ -112,13 +112,13 @@
                       <div class="absolute left-2 top-[0.75rem] w-4 h-px bg-gray-300"></div>
                       <button id="ithaca-toggle" class="hover:text-gray-500 transition-colors cursor-pointer text-left bg-transparent border-none p-0 font-mono text-sm sm:text-base">Project Ithaca</button>
                     </div>
-                    <div id="ithaca-description" class="overflow-hidden transition-all duration-300 ease-in-out mt-2 mb-2" style="max-height: 0; opacity: 0;">
-                      <div class="pl-4">
-                        <p class="text-[#8b7d6b]">Project Ithaca is a reader-first platform of The Great Books. While there are many ways to get a copy of The Great Books, this project puts the digital reading experience first.
+                    <div id="ithaca-description" class="overflow-hidden transition-all duration-300 ease-in-out mt-2" style="max-height: 0; opacity: 0;">
+                      <div class="pl-4 pr-0" style="max-width: 36rem;">
+                        <p class="text-[#8b7d6b]" style="font-size: calc(0.875rem - 2px); line-height: 1.5;">Project Ithaca is a reader-first platform of The Great Books. While there are many ways to get a copy of The Great Books, this project puts the digital reading experience first.
                           When it comes to The Great Books, discussions around the reading is a critical part of the reading experience. But, with the many translations and editions, the line/paragraph numbers can get out of hand — leaving you
                           and your reading group on different pages, on multiple levels. This will make the experience of finding passages and comparing texts and thought seamless.</p>
 
-                        <p class="text-[#8b7d6b] mt-2">With this, there will also be a web app with a more visual component to the story, helping readers new to these nexts through the narrative. With the newest film adaptation of
+                        <p class="text-[#8b7d6b] mt-2" style="font-size: calc(0.875rem - 2px); line-height: 1.5;">With this, there will also be a web app with a more visual component to the story, helping readers new to these nexts through the narrative. With the newest film adaptation of
                           "The Odyssey" coming out later this year, hopefully this will welcome more people to the original text letting them confidently say, "The book was better," or perhaps, "This was as good a reading the book"!
                         </p>
                       </div>
@@ -290,8 +290,8 @@
           requestAnimationFrame(function() {
             myanmarDescription.style.maxHeight = height + 'px';
             myanmarDescription.style.opacity = '1';
-            // Update parent container height
-            setTimeout(updateProjectsListHeight, 50);
+            // Update parent container height after animation completes (300ms duration)
+            setTimeout(updateProjectsListHeight, 350);
           });
         } else {
           const currentHeight = myanmarDescription.scrollHeight;
@@ -299,8 +299,8 @@
           requestAnimationFrame(function() {
             myanmarDescription.style.maxHeight = '0';
             myanmarDescription.style.opacity = '0';
-            // Update parent container height
-            setTimeout(updateProjectsListHeight, 50);
+            // Update parent container height after animation completes
+            setTimeout(updateProjectsListHeight, 350);
           });
         }
       });
@@ -323,8 +323,8 @@
           requestAnimationFrame(function() {
             ithacaDescription.style.maxHeight = height + 'px';
             ithacaDescription.style.opacity = '1';
-            // Update parent container height
-            setTimeout(updateProjectsListHeight, 50);
+            // Update parent container height after animation completes (300ms duration)
+            setTimeout(updateProjectsListHeight, 350);
           });
         } else {
           const currentHeight = ithacaDescription.scrollHeight;
@@ -332,8 +332,8 @@
           requestAnimationFrame(function() {
             ithacaDescription.style.maxHeight = '0';
             ithacaDescription.style.opacity = '0';
-            // Update parent container height
-            setTimeout(updateProjectsListHeight, 50);
+            // Update parent container height after animation completes
+            setTimeout(updateProjectsListHeight, 350);
           });
         }
       });
