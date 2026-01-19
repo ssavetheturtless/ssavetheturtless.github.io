@@ -83,9 +83,9 @@
             </button>
             
             <div id="projects-list" class="overflow-hidden transition-all duration-300 ease-in-out" style="max-height: 0; opacity: 0;">
-              <div class="pl-6 mt-2 relative">
-                <!-- Vertical line that stops at last item's horizontal branch (2 items * 1.5rem + 0.75rem for the branch position) -->
-                <div class="absolute left-2 top-0 bg-gray-300" style="height: calc(1.5rem * 2 + 0.75rem); width: 1px;"></div>
+              <div class="pl-6 mt-2 relative" id="projects-list-inner">
+                <!-- Vertical line that extends to bottom of container -->
+                <div id="projects-vertical-line" class="absolute left-2 top-0 bg-gray-300" style="width: 1px;"></div>
                 
                 <div class="space-y-0 pb-2">
                   <div class="relative pl-6 flex items-center" style="min-height: 1.5rem;">
@@ -99,9 +99,11 @@
                       <div class="absolute left-2 top-[0.75rem] w-4 h-px bg-gray-300"></div>
                       <button id="myanmar-toggle" class="hover:text-gray-500 transition-colors cursor-pointer text-left bg-transparent border-none p-0 font-mono text-sm sm:text-base">Myanmar Monitor</button>
                     </div>
-                    <div id="myanmar-description" class="overflow-hidden transition-all duration-300 ease-in-out mt-2" style="max-height: 0; opacity: 0;">
-                      <p class="text-[#FFF] pl-4">The Myanmar Monitor is a project that monitors the situation in Myanmar since the 2021 coup. There are some 
-                        great initiatives that are pushing live updates of on the ground developments; this is a personal skills development project to create live data pipelines from social media sources and traditional media APIs.</p>
+                    <div id="myanmar-description" class="overflow-hidden transition-all duration-300 ease-in-out mt-2 mb-2" style="max-height: 0; opacity: 0;">
+                      <div class="pl-4">
+                        <p class="text-[#8b7d6b]">The Myanmar Monitor is a project that monitors the situation in Myanmar since the 2021 coup. There are some 
+                          great initiatives that are pushing live updates of on the ground developments; this is a personal skills development project to create live data pipelines from social media sources and traditional media APIs.</p>
+                      </div>
                     </div>
                   </div>
                   <div class="relative pl-6">
@@ -110,14 +112,16 @@
                       <div class="absolute left-2 top-[0.75rem] w-4 h-px bg-gray-300"></div>
                       <button id="ithaca-toggle" class="hover:text-gray-500 transition-colors cursor-pointer text-left bg-transparent border-none p-0 font-mono text-sm sm:text-base">Project Ithaca</button>
                     </div>
-                    <div id="ithaca-description" class="overflow-hidden transition-all duration-300 ease-in-out mt-2" style="max-height: 0; opacity: 0;">
-                      <p class="text-[#FFF] pl-4">Project Ithaca is a reader-first platform of The Great Books. While there are many ways to get a copy of The Great Books, this project puts the digital reading experience first.
-                        When it comes to The Great Books, discussions around the reading is a critical part of the reading experience. But, with the many translations and editions, the line/paragraph numbers can get out of hand — leaving you
-                        and your reading group on different pages, on multiple levels. This will make the experience of finding passages and comparing texts and thought seamless.</p>
+                    <div id="ithaca-description" class="overflow-hidden transition-all duration-300 ease-in-out mt-2 mb-2" style="max-height: 0; opacity: 0;">
+                      <div class="pl-4">
+                        <p class="text-[#8b7d6b]">Project Ithaca is a reader-first platform of The Great Books. While there are many ways to get a copy of The Great Books, this project puts the digital reading experience first.
+                          When it comes to The Great Books, discussions around the reading is a critical part of the reading experience. But, with the many translations and editions, the line/paragraph numbers can get out of hand — leaving you
+                          and your reading group on different pages, on multiple levels. This will make the experience of finding passages and comparing texts and thought seamless.</p>
 
-                        <p class="text-[#FFF] pl-4">With this, there will also be a web app with a more visual component to the story, helping readers new to these nexts through the narrative. With the newest film adaptation of
+                        <p class="text-[#8b7d6b] mt-2">With this, there will also be a web app with a more visual component to the story, helping readers new to these nexts through the narrative. With the newest film adaptation of
                           "The Odyssey" coming out later this year, hopefully this will welcome more people to the original text letting them confidently say, "The book was better," or perhaps, "This was as good a reading the book"!
                         </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -196,6 +200,8 @@
             projectsList.style.opacity = '1';
             projectsIcon.style.transform = 'rotate(0deg)';
             projectsIconSvg.setAttribute('fill', 'currentColor');
+            // Update vertical line height after opening
+            setTimeout(updateProjectsListHeight, 50);
           });
         } else {
           const currentHeight = projectsList.scrollHeight;
@@ -244,6 +250,28 @@
         }
       });
 
+      // Function to update projects list height and vertical line
+      const projectsListInner = document.getElementById('projects-list-inner');
+      const projectsVerticalLine = document.getElementById('projects-vertical-line');
+      
+      function updateProjectsListHeight() {
+        if (projectsOpen) {
+          projectsList.style.maxHeight = 'none';
+          const newHeight = projectsList.scrollHeight;
+          projectsList.style.maxHeight = newHeight + 'px';
+          
+          // Update vertical line height to extend to bottom of container
+          if (projectsListInner && projectsVerticalLine) {
+            const containerHeight = projectsListInner.scrollHeight;
+            // Calculate height to stop at last item's horizontal branch (approximately 0.75rem from bottom of last item)
+            // Convert rem to px: 1rem = 16px typically
+            const lastItemHeightPx = 1.5 * 16; // 24px
+            const branchOffsetPx = 0.75 * 16; // 12px
+            projectsVerticalLine.style.height = (containerHeight - lastItemHeightPx + branchOffsetPx) + 'px';
+          }
+        }
+      }
+
       // Myanmar Monitor toggle
       const myanmarToggle = document.getElementById('myanmar-toggle');
       const myanmarDescription = document.getElementById('myanmar-description');
@@ -262,6 +290,8 @@
           requestAnimationFrame(function() {
             myanmarDescription.style.maxHeight = height + 'px';
             myanmarDescription.style.opacity = '1';
+            // Update parent container height
+            setTimeout(updateProjectsListHeight, 50);
           });
         } else {
           const currentHeight = myanmarDescription.scrollHeight;
@@ -269,6 +299,8 @@
           requestAnimationFrame(function() {
             myanmarDescription.style.maxHeight = '0';
             myanmarDescription.style.opacity = '0';
+            // Update parent container height
+            setTimeout(updateProjectsListHeight, 50);
           });
         }
       });
@@ -291,6 +323,8 @@
           requestAnimationFrame(function() {
             ithacaDescription.style.maxHeight = height + 'px';
             ithacaDescription.style.opacity = '1';
+            // Update parent container height
+            setTimeout(updateProjectsListHeight, 50);
           });
         } else {
           const currentHeight = ithacaDescription.scrollHeight;
@@ -298,6 +332,8 @@
           requestAnimationFrame(function() {
             ithacaDescription.style.maxHeight = '0';
             ithacaDescription.style.opacity = '0';
+            // Update parent container height
+            setTimeout(updateProjectsListHeight, 50);
           });
         }
       });
