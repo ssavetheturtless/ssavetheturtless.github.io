@@ -88,12 +88,20 @@
                 <div id="projects-vertical-line" class="absolute left-2 top-0 bg-gray-300" style="width: 1px;"></div>
                 
                 <div class="space-y-0 pb-2">
-                  <div class="relative pl-6 flex items-center" style="min-height: 1.5rem;">
-                    <!-- Horizontal branch for first item -->
-                    <div class="absolute left-2 top-[0.75rem] w-4 h-px bg-gray-300"></div>
-                    <a href="https://kinfolkscientific.com/" target="_blank" rel="noopener noreferrer" class="hover:text-gray-500 transition-colors">Kinfolk Scientific</a>
+                  <div class="relative pl-6" style="margin-top: 0;">
+                    <div class="flex items-center" style="min-height: 1.5rem;">
+                      <!-- Horizontal branch for first item -->
+                      <div class="absolute left-2 top-[0.75rem] w-4 h-px bg-gray-300"></div>
+                      <button id="kinfolk-toggle" class="hover:text-gray-500 transition-colors cursor-pointer text-left bg-transparent border-none p-0 font-mono text-sm sm:text-base">Kinfolk Scientific</button>
+                    </div>
+                    <div id="kinfolk-description" class="overflow-hidden transition-all duration-300 ease-in-out" style="max-height: 0; opacity: 0; margin-top: 0;">
+                      <div class="pl-4 pr-0 mt-2" style="max-width: 36rem;">
+                        <p class="text-[#8b7d6b]" style="font-size: calc(0.875rem - 2px); line-height: 1.5;">Kinfolk Scientific is a project that explores the relationship between science and society. It tracks old wives' tales and how they are proven by science over time. It's a fun intersection of anthropology and modern science — hoping to prove your grandma right!</p>
+                        <a href="https://kinfolkscientific.com/" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 bg-black text-white px-2 py-1 font-mono" style="font-size: calc(0.75rem - 2px);">>_visit site</a>
+                      </div>
+                    </div>
                   </div>
-                  <div class="relative pl-6">
+                  <div class="relative pl-6" style="margin-top: 0;">
                     <div class="flex items-center" style="min-height: 1.5rem;">
                       <!-- Horizontal branch for second item -->
                       <div class="absolute left-2 top-[0.75rem] w-4 h-px bg-gray-300"></div>
@@ -105,7 +113,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="relative pl-6">
+                  <div class="relative pl-6" style="margin-top: 0;">
                     <div class="flex items-center" style="min-height: 1.5rem;">
                       <!-- Horizontal branch for last item -->
                       <div class="absolute left-2 top-[0.75rem] w-4 h-px bg-gray-300"></div>
@@ -113,9 +121,9 @@
                     </div>
                     <div id="ithaca-description" class="overflow-hidden transition-all duration-300 ease-in-out" style="max-height: 0; opacity: 0; margin-top: 0;">
                       <div class="pl-4 pr-0 mt-2" style="max-width: 36rem;">
-                        <p class="text-[#8b7d6b]" style="font-size: calc(0.875rem - 2px); line-height: 1.5;">Project Ithaca is a reader-first platform of The Great Books. While there are many ways to get a copy of The Great Books, this project puts the digital reading experience first. When it comes to The Great Books, discussions around the reading is a critical part of the reading experience. But, with the many translations and editions, the line/paragraph numbers can get out of hand — leaving you and your reading group on different pages, on multiple levels. This will make the experience of finding passages and comparing texts and thought seamless.</p>
+                        <p class="text-[#8b7d6b]" style="font-size: calc(0.875rem - 2px); line-height: 1.5;">Project Ithaca is a reader-first platform for The Great Books. While there are many ways to get a copy of The Great Books, this project puts the digital reading experience first. Discussions and conversation is also a critical part of the reading experience. But, with the many translations and editions, the line/paragraph numbers can get out of hand — leaving you and your reading group on different pages, on multiple levels. Project Ithaca hopes to make the experience of finding passages and comparing texts and thought seamless.</p>
 
-                        <p class="text-[#8b7d6b] mt-2" style="font-size: calc(0.875rem - 2px); line-height: 1.5;">With this, there will also be a web app with a more visual component to the story, helping readers new to these nexts through the narrative. With the newest film adaptation of "The Odyssey" coming out later this year, hopefully this will welcome more people to the original text letting them confidently say, "The book was better," or perhaps, "This was as good a reading the book"!
+                        <p class="text-[#8b7d6b] mt-2" style="font-size: calc(0.875rem - 2px); line-height: 1.5;">With this, there will also be a web app with a more visual component to the story, helping readers new to these texts throughout the story. With the newest film adaptation of "The Odyssey" coming out later this year, hopefully this will welcome more people to the original text letting them confidently say, "The book was better," or perhaps, "This was as good a reading the book"!
                         </p>
                       </div>
                     </div>
@@ -267,6 +275,39 @@
           }
         }
       }
+
+      // Kinfolk Scientific toggle
+      const kinfolkToggle = document.getElementById('kinfolk-toggle');
+      const kinfolkDescription = document.getElementById('kinfolk-description');
+      let kinfolkOpen = false;
+
+      kinfolkToggle.addEventListener('click', function() {
+        kinfolkOpen = !kinfolkOpen;
+        
+        if (kinfolkOpen) {
+          // Temporarily remove max-height restriction to measure content
+          kinfolkDescription.style.maxHeight = 'none';
+          const height = kinfolkDescription.scrollHeight;
+          kinfolkDescription.style.maxHeight = '0';
+          
+          // Use requestAnimationFrame to ensure smooth transition
+          requestAnimationFrame(function() {
+            kinfolkDescription.style.maxHeight = height + 'px';
+            kinfolkDescription.style.opacity = '1';
+            // Update parent container height after animation completes (300ms duration)
+            setTimeout(updateProjectsListHeight, 350);
+          });
+        } else {
+          const currentHeight = kinfolkDescription.scrollHeight;
+          kinfolkDescription.style.maxHeight = currentHeight + 'px';
+          requestAnimationFrame(function() {
+            kinfolkDescription.style.maxHeight = '0';
+            kinfolkDescription.style.opacity = '0';
+            // Update parent container height after animation completes
+            setTimeout(updateProjectsListHeight, 350);
+          });
+        }
+      });
 
       // Myanmar Monitor toggle
       const myanmarToggle = document.getElementById('myanmar-toggle');
