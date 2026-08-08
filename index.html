@@ -152,15 +152,45 @@
             </button>
             
             <div id="writing-list" class="overflow-hidden transition-all duration-300 ease-in-out" style="max-height: 0; opacity: 0;">
-              <div class="pl-6 mt-2 relative">
-                <!-- Vertical line that stops at the item's horizontal branch -->
-                <div class="absolute left-2 top-0 bg-gray-300" style="height: 0.75rem; width: 1px;"></div>
+              <div class="pl-6 mt-2 relative" id="writing-list-inner">
+                <div id="writing-vertical-line" class="absolute left-2 top-0 bg-gray-300" style="width: 1px;"></div>
                 
                 <div class="space-y-0 pb-2">
-                  <div class="relative pl-6 flex items-center" style="min-height: 1.5rem;">
-                    <!-- Horizontal branch -->
-                    <div class="absolute left-2 top-[0.75rem] w-4 h-px bg-gray-300"></div>
-                    <span class="italic text-gray-600">Still staring at a blank Word doc. Please be patient.</span>
+                  <div class="relative pl-6" style="margin-top: 0;">
+                    <div class="flex items-start" style="min-height: 1.5rem;">
+                      <div class="absolute left-2 top-[0.75rem] w-4 h-px bg-gray-300"></div>
+                      <div class="pb-3">
+                        <a
+                          href="https://elsinore.co/seal-and-print/preface"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="underline decoration-1 underline-offset-2 hover:text-gray-500 transition-colors"
+                        >
+                          Preface
+                        </a>
+                        <p class="text-[#8b7d6b] mt-1" style="font-size: calc(0.875rem - 2px); line-height: 1.5;">
+                          An introduction to Seal & Print, our literary dispatches of ethnographic research
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="relative pl-6" style="margin-top: 0;">
+                    <div class="flex items-start" style="min-height: 1.5rem;">
+                      <div class="absolute left-2 top-[0.75rem] w-4 h-px bg-gray-300"></div>
+                      <div class="pb-2">
+                        <a
+                          href="https://elsinore.co/seal-and-print/pax-industries"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="underline decoration-1 underline-offset-2 hover:text-gray-500 transition-colors"
+                        >
+                          Pax Industries
+                        </a>
+                        <p class="text-[#8b7d6b] mt-1" style="font-size: calc(0.875rem - 2px); line-height: 1.5;">
+                          Why Stability Was Always Worth $19.97 Trillion — And How We Finally Start Paying for It
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -180,11 +210,11 @@
       </main>
 
       <a
-        href="https://www.sicstudio.org/"
+        href="https://infinitespace.elsinore.co/"
         target="_blank"
         rel="noopener noreferrer"
         class="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 bg-black text-white px-2 py-1 font-mono text-xs sm:text-sm tracking-widest hover:scale-105 transition-transform duration-200 z-50 select-none shadow-sm"
-        aria-label="Link to SIC Studio"
+        aria-label="Link to Infinite Space"
       >
         ssavetheturtless
       </a>
@@ -234,7 +264,19 @@
       const writingList = document.getElementById('writing-list');
       const writingIcon = document.getElementById('writing-icon');
       const writingIconSvg = document.getElementById('writing-icon-svg');
+      const writingListInner = document.getElementById('writing-list-inner');
+      const writingVerticalLine = document.getElementById('writing-vertical-line');
       let writingOpen = false;
+
+      function updateWritingListHeight() {
+        if (writingOpen && writingListInner && writingVerticalLine) {
+          const containerHeight = writingListInner.scrollHeight;
+          const lastItem = writingListInner.querySelector('.space-y-0 > div:last-child');
+          const lastItemHeightPx = lastItem ? lastItem.scrollHeight : 24;
+          const branchOffsetPx = 0.75 * 16;
+          writingVerticalLine.style.height = (containerHeight - lastItemHeightPx + branchOffsetPx) + 'px';
+        }
+      }
 
       writingToggle.addEventListener('click', function() {
         writingOpen = !writingOpen;
@@ -251,6 +293,7 @@
             writingList.style.opacity = '1';
             writingIcon.style.transform = 'rotate(0deg)';
             writingIconSvg.setAttribute('fill', 'currentColor');
+            setTimeout(updateWritingListHeight, 50);
           });
         } else {
           const currentHeight = writingList.scrollHeight;
